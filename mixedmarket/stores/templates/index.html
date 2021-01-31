@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+  <html lang="en">
+    <head>
+        <title>Title</title>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|" rel="stylesheet">
+      <!--Import materialize.css-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.2/css/materialize.min.css">
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+            <script
+        src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+        crossorigin="anonymous"></script>
+    </head>
+
+    <body>
+    <div style="height: 50px"></div>
+    <div class="row">
+        <form method="POST" action="">
+            {% csrf_token %}
+            <div class="input-field col s4 offset-s1">
+                <select multiple name="{{ form.picked.name }}">
+                    <option value="" disabled selected>Choose your option</option>
+                    {% for opt in form.picked %}
+                    {{ opt }}
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="input-field col s4">
+                <i class="material-icons prefix">search</i>
+                {{form.search}}
+            </div>
+            <div class="input-field col s2">
+                <button style="height: 100%;width: 100%;" type="submit" class="waves-effect waves-light btn">Go</button>
+            </div>
+        </form>
+    </div>
+    <div class="container">
+      <div class="row">
+        {% for result in results %}
+        <div class="col s6 m4 l3">
+          <div style="border-radius:15px;cursor:pointer;" class="card medium hoverable">
+            <div style="border-radius:15px;" class="card-image">
+              <a href={{result.3}}><img style="height: 100%; object-fit: contain"src={{result.2}}></a>
+
+            </div>
+            <div style="overflow-y: scroll;"class="card-content">
+              <h6>{{result.0}}</h6>
+            </div>
+            <div style="border-radius:15px;" class="card-action">
+              <a href="#">{{result.1}}</a>
+              {% if result.4 == "H&M" %}
+              <a href="#"><img height="40px%"src="https://1000logos.net/wp-content/uploads/2017/02/HM-Logo.png" alt=""></a>
+              {% elif result.4 == "AE" %}
+              <a href="#"><img height="40px%"src="https://worldofcreditcards.com/wp-content/uploads/2020/01/American-Eagle-Credit-Card-1.png" alt=""></a>
+              {% elif result.4 == "ASOS" %}
+              <a href="#"><img height="40px%"src="https://download.logo.wine/logo/ASOS_(retailer)/ASOS_(retailer)-Logo.wine.png" alt=""></a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+      <!--JavaScript at end of body for optimized loading-->
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+      < <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.2/js/materialize.min.js"></script>
+        <script>
+        $(document).ready(function() {
+        $('select').material_select();
+        });
+      </script>
+
+    </body>
+  </html>
